@@ -14,7 +14,7 @@ on:
 env:
   CR_REGISTRY: ghcr.io
   CR_REPO: caragius/ci-golang-demo
-  GIT_ENV: ${GITHUB_REF##*/}-${GITHUB_SHA::4}
+  GIT_VER: ${GITHUB_REF##*/}-${GITHUB_SHA::4}
 
 jobs:
   lint:
