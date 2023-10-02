@@ -86,9 +86,12 @@ jobs:
 
       - name: Get version
         id: getver
-        run: echo "GIT_VER=$(echo ${GITHUB_REF##*/})-$(echo ${{ github.sha }} | cut -c1-3)" >> $GITHUB_ENV
+        run: |
+          echo ${GITHUB_REF##*/}
+          echo ${GITHUB_REF}
+          echo "GIT_VER=$(echo ${GITHUB_REF##*/})-$(echo ${{ github.sha }} | cut -c1-3)" >> $GITHUB_ENV
+          echo $GIT_VER
 
-        
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
