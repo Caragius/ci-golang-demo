@@ -1,0 +1,31 @@
+variables:
+  CR_REGISTRY: ghcr.io
+  CR_REPO: caragius/ci-golang-demo
+
+
+stages:
+  - lint_and_test
+  - build-upload-artefact
+
+lint:
+  stage: lint_and_test
+  image: golang:latest
+  script:
+    - go get -u golang.org/x/lint/golint
+    - export PATH=$PATH:$(go env GOPATH)/bin
+    - make lint
+
+test:
+  stage: lint_and_test
+  image: golang:latest
+  script:
+    - make test
+
+build-upload-artefact:
+  image: golang:latest
+  script:
+    - make build
+  artifacts:
+    paths:
+      - build/main
+
