@@ -1,0 +1,62 @@
+name: Docker and Helm Build and Push
+
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CR_REGISTRY: 
+  CR_REPO: 
+  CR_REPO_PREDICTION: 
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    #environment: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: run lint
+        run: make lint
+
+  test:
+    runs-on: ubuntu-latest
+    #environment: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: run lint
+        run: make test
+
+  # build-and-push:
+  #   runs-on: ubuntu-latest
+  #   #environment: dev
+  #   steps:
+
+
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+
+  #     #- name: Set up QEMU
+  #    #   uses: docker/setup-qemu-action@v2
+ 
+  #     #- name: Set up Docker Buildx
+  #    #   uses: docker/setup-buildx-action@v2
+
+  #     - name: Get version
+  #       id: getver
+  #       run: echo "GIT_VER=$(git describe --match "v*" --abbrev=4 --tags --always)-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+
+        
+  #     - name: Build and push
+  #       uses: docker/build-push-action@v4
+  #       with:
+  #         push: true
+  #         file: ./compose/Dockerfile
+  #         context: .
+  #         tags: cr.yandex/${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }} 
