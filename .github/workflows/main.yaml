@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: install golint
+        run: go get -u golang.org/x/lint/golint
 
       - name: run lint
         run: make lint
