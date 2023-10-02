@@ -8,8 +8,7 @@ on:
 
 env:
   CR_REGISTRY: ghcr.io
-  CR_REPO: ${{ github.repository }}
-  CR_REPO_PREDICTION: 
+  CR_REPO: caraguis/ci-golang-demo
 
 jobs:
   lint:
