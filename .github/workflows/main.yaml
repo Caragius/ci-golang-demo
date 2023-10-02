@@ -88,7 +88,7 @@ jobs:
           echo ${GITHUB_REF##*/}
           echo ${GITHUB_REF}
           echo $CI_COMMIT_REF_NAME
-
+          echo "11"
           export "GIT_VER={GITHUB_SHA::4}" >> $GITHUB_ENV
           echo $GIT_VER
 
@@ -98,7 +98,7 @@ jobs:
           echo ${GITHUB_REF##*/}
           echo ${GITHUB_REF}
           echo $CI_COMMIT_REF_NAME
-
+          echo "22"
           echo "GIT_VER=${GITHUB_REF##*/}" >>  $GITHUB_ENV
           echo ${{ env.GIT_VER }}
           
