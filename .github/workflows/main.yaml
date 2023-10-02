@@ -72,8 +72,10 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ${{ env.CR_REGISTRY }}
-          username: ${{ secrets.USERNAME_FOR_CR }}
-          password: ${{ secrets.TOKEN_FOR_CR }}
+          # username: ${{ secrets.USERNAME_FOR_CR }}
+          # password: ${{ secrets.TOKEN_FOR_CR }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Get version
