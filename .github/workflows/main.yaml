@@ -2,9 +2,14 @@ name: Docker and Helm Build and Push
 
 
 on:
+  # push:
+  #   branches:
+  #     - main
   push:
-    branches:
-      - main
+    tags:
+      - '*'
+      
+
 
 env:
   CR_REGISTRY: ghcr.io
@@ -81,7 +86,7 @@ jobs:
 
       - name: Get version
         id: getver
-        run: echo "GIT_VER=$(git describe --match "v*" --abbrev=4 --tags --always)-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+        run: echo "GIT_VER=$(basename $GITHUB_REF)-$(echo ${{ github.sha }} | cut -c1-3)-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
 
         
       - name: Build and push
