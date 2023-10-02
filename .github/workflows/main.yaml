@@ -91,7 +91,8 @@ jobs:
           echo ${GITHUB_REF##*/}
           echo ${GITHUB_REF}
           echo $CI_COMMIT_REF_NAME
-          echo "GIT_VER=$CI_COMMIT_REF_NAME-${GITHUB_REF##*/}-${GITHUB_SHA::4}" >> $GITHUB_ENV
+
+          export GIT_VER=${GITHUB_REF##*/}-${GITHUB_SHA::4}
           echo $GIT_VER
 
       - name: Build and push
