@@ -20,7 +20,11 @@ jobs:
         uses: actions/checkout@v2
       
       - name: install golint
-        run: go get -u golang.org/x/lint/golint
+        run: GO111MODULE=off go get -u golang.org/x/lint/golint
+  
+      - name: Add golint to PATH
+        run: echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+  
 
       - name: run lint
         run: make lint
