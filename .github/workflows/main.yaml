@@ -7,8 +7,8 @@ on:
       - main
 
 env:
-  CR_REGISTRY: 
-  CR_REPO: 
+  CR_REGISTRY: ghcr.io
+  CR_REPO: ${{ github.repository }}
   CR_REPO_PREDICTION: 
 
 jobs:
@@ -53,31 +53,39 @@ jobs:
         with:
           name: goblin
           path: build/main
-  # build-and-push:
-  #   runs-on: ubuntu-latest
-  #   #environment: dev
-  #   steps:
+  build-and-push:
+    runs-on: ubuntu-latest
+    #environment: dev
+    steps:
 
 
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
 
-  #     #- name: Set up QEMU
-  #    #   uses: docker/setup-qemu-action@v2
+      #- name: Set up QEMU
+     #   uses: docker/setup-qemu-action@v2
  
-  #     #- name: Set up Docker Buildx
-  #    #   uses: docker/setup-buildx-action@v2
+      #- name: Set up Docker Buildx
+     #   uses: docker/setup-buildx-action@v2
 
-  #     - name: Get version
-  #       id: getver
-  #       run: echo "GIT_VER=$(git describe --match "v*" --abbrev=4 --tags --always)-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.CR_REGISTRY }}
+          username: ${{ secrets.USERNAME_FOR_CR }}
+          password: ${{ secrets.TOKEN_FOR_CR }}
+
+
+      - name: Get version
+        id: getver
+        run: echo "GIT_VER=$(git describe --match "v*" --abbrev=4 --tags --always)-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
 
         
-  #     - name: Build and push
-  #       uses: docker/build-push-action@v4
-  #       with:
-  #         push: true
-  #         file: ./compose/Dockerfile
-  #         context: .
-  #         tags: cr.yandex/${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }} 
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./Dockerfile
+          context: .
+          tags: ${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }} 
