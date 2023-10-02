@@ -8,7 +8,7 @@ on:
 
 env:
   CR_REGISTRY: ghcr.io
-  CR_REPO: caraguis/ci-golang-demo
+  CR_REPO: caragius/ci-golang-demo
 
 jobs:
   lint:
