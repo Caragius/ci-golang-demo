@@ -99,4 +99,4 @@ jobs:
           push: true
           file: ./Dockerfile
           context: .
-          tags: ${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }} 
+          tags: ${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:$(echo ${GITHUB_REF##*/})-(echo ${GITHUB_SHA::4})
