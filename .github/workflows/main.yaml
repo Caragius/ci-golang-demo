@@ -90,8 +90,8 @@ jobs:
           echo $CI_COMMIT_REF_NAME
           echo "11"
           export "GIT_VER=${GITHUB_SHA::4}" >> $GITHUB_ENV
-          echo $GIT_VER
-
+          echo $${{ env.GIT_VER }}
+          
       - name: Get version
         if: github.ref == 'refs/tags/*'
         run: |
