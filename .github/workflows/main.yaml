@@ -110,6 +110,6 @@ jobs:
           file: ./Dockerfile
           context: .
           tags: ${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }}
-          cache-to: type=local,dest=cache
-          cache-from: type=local,src=cache
+          cache-to: type=local,dest=~/.buildx-cache
+          cache-from: type=local,src=.buildx-cache
           
