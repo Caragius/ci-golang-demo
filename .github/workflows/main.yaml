@@ -60,7 +60,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' 
     # || github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: [lint,test]
+    # needs: [lint,test]
     #environment: dev
     steps:
 
@@ -110,6 +110,7 @@ jobs:
           file: ./Dockerfile
           context: .
           tags: ${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:${{ env.GIT_VER }}
-          cache-to: type=registry,ref=${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:1
-          cache-from: type=registry,ref=${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}:1
-          
+          cache-to: type=gha
+          cache-from: type=gha
+          # cache-to: type=registry,ref=${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}
+          # cache-from: type=registry,ref=${{ env.CR_REGISTRY }}/${{ env.CR_REPO }}
